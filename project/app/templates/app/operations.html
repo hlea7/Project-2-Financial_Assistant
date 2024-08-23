@@ -15,7 +15,7 @@
     <div class="container mt-5">
         <h1>Balance Operations</h1>
         <!-- 
-        Using the conditional operator output the balance 
+        Using the conditional operator outputs the balance 
         if it is not equal to 0 and output the chop when 
         the balance is not equal to 0
 
@@ -25,7 +25,11 @@
         Example of output with a non-zero balance: 
         <p>Your current balance: $215</p> 
         -->
-        
+        {% if balance != 0 %}
+            <p>Your current balance: ${{ balance }}</p>
+        {% else %}
+            <p>You have a zero balance</p>
+        {% endif %}        
         <div class="row">
             <div class="col-md-12">
                 <form method="post" action="{% url 'operations' %}" class="mb-3">
@@ -42,6 +46,15 @@
                         <input type="number" id="amount" name="amount" class="form-control" required>
                     </div>
                     <button type="submit" class="btn btn-primary mt-2">Submit</button>
+                    {% if messages %}
+                        <div class="container mt-3"></div>
+                            {% for message in messages %}
+                                <p class="{% if message.tags %}{{ message.tags }}{% endif %}">
+                                    {{ message }}
+                                </p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </form>
             </div>            
         </div>
